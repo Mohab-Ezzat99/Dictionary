@@ -11,6 +11,8 @@ import dagger.hilt.components.SingletonComponent
 import mrandroid.dictionary.data.local.Converters
 import mrandroid.dictionary.data.local.DictionaryDB
 import mrandroid.dictionary.data.remote.DictionaryApi
+import mrandroid.dictionary.data.repository.WordRepositoryImpl
+import mrandroid.dictionary.domain.repository.WordRepository
 import mrandroid.dictionary.util.Constants
 import mrandroid.dictionary.util.parser.GsonParser
 import okhttp3.OkHttpClient
@@ -52,10 +54,13 @@ object AppModule {
             .build()
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideAuthRepository(belloutApi: DictionaryApi): AuthRepository {
-//        return AuthRepositoryImpl(belloutApi)
-//    }
+    @Provides
+    @Singleton
+    fun provideWordRepository(
+        dictionaryApi: DictionaryApi,
+        dictionaryDB: DictionaryDB
+    ): WordRepository {
+        return WordRepositoryImpl(dictionaryApi, dictionaryDB.dao)
+    }
 
 }
