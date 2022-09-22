@@ -40,13 +40,11 @@ class MainActivity : AppCompatActivity() {
                     is UiState.Loading -> LoadingDialog.showDialog()
                     is UiState.Error -> {
                         LoadingDialog.dismissDialog()
-                        showToast(it.message?.asString(this@MainActivity) ?: "Error")
-                        binding.tvResult.text = it.data?.get(0)?.origin
+                        binding.tvResult.text = it.data?.get(0)?.word
                     }
                     is UiState.Success -> {
                         LoadingDialog.dismissDialog()
                         binding.tvResult.text = it.data?.get(0)?.word
-                        showToast(it.data?.get(0)?.word ?: "test origin")
                     }
                     else -> Unit
                 }
